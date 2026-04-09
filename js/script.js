@@ -127,7 +127,7 @@ if (collectionSelect && sizeSelect) {
 
 /* Testimonials: infinite horizontal loop (mobile / tablet strip only). */
 const testimonialStrip = document.querySelector('.testimonial-scroll-wrap .testimonial-grid');
-const mqLoop = window.matchMedia('(max-width: 960px)');
+const mqLoop = window.matchMedia('(max-width: 1024px)');
 
 function teardownTestimonialLoop() {
   if (!testimonialStrip) return;
