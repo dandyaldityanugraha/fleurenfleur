@@ -1,3 +1,11 @@
+/**
+ * Fleur en Fleur — site behavior
+ * WhatsApp: update `whatsappE164` and matching `wa.me/…` links in HTML footers & about page.
+ */
+const SITE = {
+  whatsappE164: '6289609338889',
+};
+
 const menuToggle = document.querySelector('.menu-toggle');
 const siteNav = document.querySelector('.site-nav');
 
@@ -26,7 +34,7 @@ document.querySelectorAll('.site-nav a').forEach((link) => {
 
 const orderForm = document.getElementById('orderForm');
 const copyButton = document.getElementById('copyMessage');
-const whatsappNumber = '6289609338889';
+const whatsappNumber = SITE.whatsappE164;
 
 function buildMessage() {
   if (!orderForm) return '';
@@ -79,4 +87,40 @@ if (copyButton) {
       alert('Could not copy automatically. Please try again.');
     }
   });
+}
+
+/* Catalog 2026: size options depend on collection (see PDF). */
+const collectionSelect = document.getElementById('collection');
+const sizeSelect = document.getElementById('size');
+
+const SIZE_BY_CATEGORY = {
+  bouquet: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+  bloombox: ['S', 'M', 'L', 'XL'],
+  vase: ['S', 'M', 'L', 'XL', 'XXL'],
+};
+
+function collectionCategory(value) {
+  if (!value) return 'bouquet';
+  if (value.includes('Fleurette')) return 'bloombox';
+  if (value.includes('Flourish')) return 'vase';
+  return 'bouquet';
+}
+
+function syncSizeOptions() {
+  if (!sizeSelect || !collectionSelect) return;
+  const sizes = SIZE_BY_CATEGORY[collectionCategory(collectionSelect.value)];
+  const previous = sizeSelect.value;
+  sizeSelect.innerHTML = '<option value="">Choose size</option>';
+  sizes.forEach((s) => {
+    const opt = document.createElement('option');
+    opt.textContent = s;
+    opt.value = s;
+    sizeSelect.appendChild(opt);
+  });
+  if (sizes.includes(previous)) sizeSelect.value = previous;
+}
+
+if (collectionSelect && sizeSelect) {
+  collectionSelect.addEventListener('change', syncSizeOptions);
+  syncSizeOptions();
 }
