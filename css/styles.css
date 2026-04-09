@@ -566,6 +566,11 @@ textarea:focus {
   .product-panels {
     grid-template-columns: 1fr 1fr;
   }
+
+  /* Center badge chips when hero stacks (tablet) */
+  .hero .hero-badges {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 760px) {
@@ -599,5 +604,19 @@ textarea:focus {
   }
   .footer-wrap {
     flex-direction: column;
+  }
+
+  /* Phone: stacked, equal width, centered — reads symmetrical */
+  .hero .hero-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+  }
+  .hero .hero-badges li {
+    width: 100%;
+    max-width: 20rem;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
